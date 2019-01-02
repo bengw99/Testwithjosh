@@ -17,10 +17,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".page2"
-            android:label="@string/title_activity_page2"
+            android:name=".doesstuff"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_doesstuff"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/FullscreenTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="bengw.testwithjosh.MainActivity" />
