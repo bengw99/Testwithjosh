@@ -1,17 +1,24 @@
 package bengw.testwithjosh;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.media.ExifInterface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 /**
@@ -21,6 +28,12 @@ import android.widget.RelativeLayout;
 public class doesstuff extends AppCompatActivity {
     private int mycolor;
 
+    //for device orientation
+    Sensor accelerometer;
+    Sensor magnetometer;
+    Sensor vectorSensor;
+    DeviceOrientation deviceOrientation;
+    SensorManager mSensorManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +54,12 @@ public class doesstuff extends AppCompatActivity {
                 cyclerb();
             }
         });
+
+        //for device orientation
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        deviceOrientation = new DeviceOrientation();
     }
 
     @Override
@@ -59,7 +78,27 @@ public class doesstuff extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(deviceOrientation.getEventListener());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(deviceOrientation.getEventListener(), accelerometer, SensorManager.SENSOR_DELAY_UI);
+        mSensorManager.registerListener(deviceOrientation.getEventListener(), magnetometer, SensorManager.SENSOR_DELAY_UI);
+    }
+
     private void cyclerb() {
+        ImageView spork = (ImageView)findViewById(R.id.spork);
+        int orient = deviceOrientation.getOrientation();
+        if (orient == ExifInterface.ORIENTATION_) {
+            spork.setVisibility(View.VISIBLE);
+        } else {
+            spork.setVisibility(View.INVISIBLE);
+        }
         FrameLayout fl = (FrameLayout)findViewById(R.id.gamebox);
         if (mycolor == 0) {
             mycolor = 1;

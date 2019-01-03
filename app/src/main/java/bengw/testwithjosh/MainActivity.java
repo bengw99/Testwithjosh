@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void gotopage2() {
-        Intent intent = new Intent(this, page2.class);
+        Intent intent = new Intent(this, doesstuff.class);
         startActivity(intent);
     }
 
