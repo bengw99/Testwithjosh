@@ -94,7 +94,7 @@ public class doesstuff extends AppCompatActivity {
     private void cyclerb() {
         ImageView spork = (ImageView)findViewById(R.id.spork);
         int orient = deviceOrientation.getOrientation();
-        if (orient == ExifInterface.ORIENTATION_) {
+        if (orient == ExifInterface.ORIENTATION_ROTATE_270) {
             spork.setVisibility(View.VISIBLE);
         } else {
             spork.setVisibility(View.INVISIBLE);
